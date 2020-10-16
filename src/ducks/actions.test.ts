@@ -24,3 +24,15 @@ describe("removeTodoItem()", () => {
     expect(action.payload.description).toEqual("foo");
   });
 });
+
+describe("toggleTodoItemStatus()", () => {
+  it("should contain the right action type", () => {
+    const action = actions.toggleTodoItemStatus(5);
+    expect(action.type).toEqual(types.TOGGLE_TODO_ITEM_STATUS);
+  });
+
+  it("should contain the description in the payload", () => {
+    const action = actions.toggleTodoItemStatus(5);
+    expect(action.payload.id).toEqual(5);
+  });
+});
