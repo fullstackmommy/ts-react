@@ -19,9 +19,9 @@ describe("removeTodoItem()", () => {
     expect(action.type).toEqual(types.REMOVE_TODO_ITEM);
   });
 
-  it("should contain the description in the payload", () => {
-    const action = actions.removeTodoItem("foo");
-    expect(action.payload.description).toEqual("foo");
+  it("should contain the id in the payload", () => {
+    const action = actions.removeTodoItem(1);
+    expect(action.payload.id).toEqual(1);
   });
 });
 
