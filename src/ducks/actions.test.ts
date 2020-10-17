@@ -15,7 +15,7 @@ describe("addTodoItem()", () => {
 
 describe("removeTodoItem()", () => {
   it("should contain the right action type", () => {
-    const action = actions.removeTodoItem("foo");
+    const action = actions.removeTodoItem(1);
     expect(action.type).toEqual(types.REMOVE_TODO_ITEM);
   });
 

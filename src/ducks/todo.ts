@@ -4,21 +4,30 @@ export const types = {
   TOGGLE_TODO_ITEM_STATUS: "TOGGLE_TODO_ITEM_STATUS",
 };
 
-const DEFAULT_STATE = {
-  items: [
-    {
-      id: 1,
-      description: "learn React",
-      isCompleted: false,
-    },
-  ],
-};
-
-function getId(state): number {
-  return state.items.length + 1;
+interface Payload {
+  id?: number;
+  description?: string;
+  isCompleted?: boolean;
 }
 
-export function reducer(state = DEFAULT_STATE, action) {
+interface Actions {
+  type: string;
+  payload: Payload;
+}
+
+interface TodoItem {
+  id: number;
+  description: string;
+  isCompleted: boolean;
+}
+
+type State = TodoItem[];
+
+function getId(state): number {
+  return state.length + 1;
+}
+
+export function reducer(state: State, action: Actions) {
   switch (action.type) {
     case types.ADD_TODO_ITEM:
       let newTodo = {
@@ -27,21 +36,15 @@ export function reducer(state = DEFAULT_STATE, action) {
         isCompleted: false,
       };
 
-      return { ...state, items: [...state.items, newTodo] };
+      return [...state, newTodo];
     case types.REMOVE_TODO_ITEM:
-      return {
-        ...state,
-        items: state.items.filter((item) => item.id !== action.payload.id),
-      };
+      return state.filter((item) => item.id !== action.payload.id);
     case types.TOGGLE_TODO_ITEM_STATUS:
-      return {
-        ...state,
-        items: state.items.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, isCompleted: !item.isCompleted }
-            : item
-        ),
-      };
+      return state.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, isCompleted: !item.isCompleted }
+          : item
+      );
     default:
       return state;
   }
