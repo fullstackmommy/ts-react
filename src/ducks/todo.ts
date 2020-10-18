@@ -1,27 +1,10 @@
+import { Actions, State } from "../common/interface/types";
+
 export const types = {
   ADD_TODO_ITEM: "ADD_TODO_ITEM",
   REMOVE_TODO_ITEM: "REMOVE_TODO_ITEM",
   TOGGLE_TODO_ITEM_STATUS: "TOGGLE_TODO_ITEM_STATUS",
 };
-
-interface Payload {
-  id?: number;
-  description?: string;
-  isCompleted?: boolean;
-}
-
-interface Actions {
-  type: string;
-  payload: Payload;
-}
-
-interface TodoItem {
-  id: number;
-  description: string;
-  isCompleted: boolean;
-}
-
-type State = TodoItem[];
 
 function getId(state): number {
   return state.length + 1;
