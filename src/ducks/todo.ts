@@ -7,7 +7,7 @@ export const types = {
 };
 
 function getId(state): number {
-  return state.length + 1;
+  return state.todos.length + 1;
 }
 
 export function reducer(state: State, action: Actions) {
@@ -19,15 +19,21 @@ export function reducer(state: State, action: Actions) {
         isCompleted: false,
       };
 
-      return [...state, newTodo];
+      return { ...state, todos: [...state.todos, newTodo] };
     case types.REMOVE_TODO_ITEM:
-      return state.filter((item) => item.id !== action.payload.id);
+      return {
+        ...state,
+        todos: state.todos.filter((item) => item.id !== action.payload.id),
+      };
     case types.TOGGLE_TODO_ITEM_STATUS:
-      return state.map((item) =>
-        item.id === action.payload.id
-          ? { ...item, isCompleted: !item.isCompleted }
-          : item
-      );
+      return {
+        ...state,
+        todos: state.todos.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, isCompleted: !item.isCompleted }
+            : item
+        ),
+      };
     default:
       return state;
   }

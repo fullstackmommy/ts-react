@@ -15,4 +15,4 @@ export interface TodoItem {
   isCompleted: boolean;
 }
 
-export type State = TodoItem[];
+export type State = { todos: TodoItem[] };
