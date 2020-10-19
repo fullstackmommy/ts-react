@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import TodoItem from "./TodoItem";
 
@@ -10,12 +10,25 @@ describe("TodoItem", () => {
     isCompleted: true,
   };
 
-  it("should display item description and status", () => {
-    const { getByText, getByTestId } = render(<TodoItem item={item} />);
+  const handleClick = jest.fn();
 
-    expect(getByText(/item 1/i)).toBeInTheDocument();
-    expect(getByTestId("todoItem")).toHaveStyle(
-      "text-decoration: line-through"
+  it("should display item description and status", () => {
+    const { getByText } = render(
+      <TodoItem item={item} handleClick={handleClick} />
     );
+
+    const todoItem = getByText(/item 1/i);
+    expect(todoItem).toBeInTheDocument();
+    expect(todoItem).toHaveStyle("text-decoration: line-through");
+  });
+
+  it("should call handleClick function when the item is clicked", () => {
+    const { getByText } = render(
+      <TodoItem item={item} handleClick={handleClick} />
+    );
+    const todoItem = getByText(/item 1/i);
+
+    fireEvent.click(todoItem);
+    expect(handleClick.mock.calls.length).toEqual(1);
   });
 });
