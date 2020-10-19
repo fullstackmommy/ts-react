@@ -6,7 +6,7 @@ export const types = {
   TOGGLE_TODO_ITEM_STATUS: "TOGGLE_TODO_ITEM_STATUS",
 };
 
-function getId(state): number {
+function getId(state: State): number {
   return state.todos.length + 1;
 }
 
