@@ -1,3 +1,5 @@
+import { reducer as todoReducer } from "../../ducks/todo";
+
 export interface Payload {
   id?: number;
   description?: string;
@@ -16,3 +18,5 @@ export interface TodoItem {
 }
 
 export type State = { todos: TodoItem[] };
+
+export type AppState = ReturnType<typeof todoReducer>;
