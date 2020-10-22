@@ -1,12 +1,27 @@
 import React from "react";
 import TodoItem from "./TodoItem";
+import { TodoItem as TodoItemType } from "../common/interface/types";
 
-function TodoList({ items, handleClick }) {
+function TodoList({
+  todos,
+  toggleStatus,
+  removeTodoItem,
+}: {
+  todos: TodoItemType[];
+  toggleStatus: (id: number) => void;
+  removeTodoItem: (id: number) => void;
+}) {
   return (
     <ul>
-      {items.map((item) => (
-        <TodoItem key={item.id} item={item} handleClick={handleClick} />
-      ))}
+      {todos &&
+        todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            item={todo}
+            toggleStatus={toggleStatus}
+            removeTodoItem={removeTodoItem}
+          />
+        ))}
     </ul>
   );
 }
