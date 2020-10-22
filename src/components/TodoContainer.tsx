@@ -1,26 +1,37 @@
 import React from "react";
-import { connect } from "react-redux";
 import TodoList from "./TodoList";
 import { actions as todoActions } from "../ducks/todo";
+import { State } from "../common/interface/types";
+import { NewTodo } from "../NewTodo";
+import { useSelector, useDispatch } from "react-redux";
 
-export function TodoContainer({ items, toggleStatus }) {
+export const TodoContainer = () => {
+  const todos = useSelector<State, State["todos"]>((state) => state.todos);
+  const dispatch = useDispatch();
+
+  const addTodoItem = (description: string) => {
+    dispatch(todoActions.addTodoItem(description));
+  };
+
+  const toggleStatus = (id: number) => {
+    dispatch(todoActions.toggleTodoItemStatus(id));
+  };
+
+  const removeTodoItem = (id: number) => {
+    dispatch(todoActions.removeTodoItem(id));
+  };
+
   return (
     <div>
       <h1>Todo List</h1>
-      <TodoList items={items} handleClick={toggleStatus} />
+      <NewTodo addTodoItem={addTodoItem} />
+      <TodoList
+        todos={todos}
+        toggleStatus={toggleStatus}
+        removeTodoItem={removeTodoItem}
+      />
     </div>
   );
-}
+};
 
-const mapStateToProps = (state) => ({
-  todos: state.todos,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  toggleStatus: (id: number) => {
-    console.log("clicked");
-    dispatch(todoActions.toggleTodoItemStatus(id));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
+export default TodoContainer;
