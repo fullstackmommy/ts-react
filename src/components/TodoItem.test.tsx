@@ -10,11 +10,16 @@ describe("TodoItem", () => {
     isCompleted: true,
   };
 
-  const handleClick = jest.fn();
+  const toggleStatus = jest.fn();
+  const removeTodoItem = jest.fn();
 
   it("should display item description and status", () => {
     const { getByText } = render(
-      <TodoItem item={item} handleClick={handleClick} />
+      <TodoItem
+        item={item}
+        toggleStatus={toggleStatus}
+        removeTodoItem={removeTodoItem}
+      />
     );
 
     const todoItem = getByText(/item 1/i);
@@ -22,13 +27,31 @@ describe("TodoItem", () => {
     expect(todoItem).toHaveStyle("text-decoration: line-through");
   });
 
-  it("should call handleClick function when the item is clicked", () => {
+  it("should call toggleStatus function when the item is clicked", () => {
     const { getByText } = render(
-      <TodoItem item={item} handleClick={handleClick} />
+      <TodoItem
+        item={item}
+        toggleStatus={toggleStatus}
+        removeTodoItem={removeTodoItem}
+      />
     );
     const todoItem = getByText(/item 1/i);
 
     fireEvent.click(todoItem);
-    expect(handleClick.mock.calls.length).toEqual(1);
+    expect(toggleStatus.mock.calls.length).toEqual(1);
+  });
+
+  it("should call removeTodo callback function when the delete button is clicked", () => {
+    const { getByTestId } = render(
+      <TodoItem
+        item={item}
+        toggleStatus={toggleStatus}
+        removeTodoItem={removeTodoItem}
+      />
+    );
+
+    const deleteButton = getByTestId(`deleteItemBtn-${item.id}`);
+    fireEvent.click(deleteButton);
+    expect(removeTodoItem.mock.calls.length).toEqual(1);
   });
 });
