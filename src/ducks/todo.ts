@@ -10,7 +10,11 @@ function getId(state: State): number {
   return state.todos.length + 1;
 }
 
-export function reducer(state: State, action: Actions) {
+export const initialState: State = {
+  todos: [{ id: 1, description: "learn react", isCompleted: false }],
+};
+
+export function reducer(state: State = initialState, action: Actions) {
   switch (action.type) {
     case types.ADD_TODO_ITEM:
       let newTodo = {
@@ -18,7 +22,6 @@ export function reducer(state: State, action: Actions) {
         description: action.payload.description,
         isCompleted: false,
       };
-
       return { ...state, todos: [...state.todos, newTodo] };
     case types.REMOVE_TODO_ITEM:
       return {
