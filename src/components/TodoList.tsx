@@ -13,8 +13,7 @@ function TodoList({
   removeTodoItem: (id: number) => void;
 }) {
   return (
-    <table className={styles.table}>
-      <tbody>
+    <div className={styles.todoList}>
         {todos &&
           todos.map((todo) => (
             <TodoItem
@@ -24,8 +23,7 @@ function TodoList({
               removeTodoItem={removeTodoItem}
             />
           ))}
-      </tbody>
-    </table>
+    </div>
   );
 }
 
