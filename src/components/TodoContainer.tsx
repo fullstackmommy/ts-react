@@ -22,7 +22,7 @@ export const TodoContainer = () => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <h1>Todo List</h1>
       <NewTodo addTodoItem={addTodoItem} />
       <TodoList
@@ -30,7 +30,7 @@ export const TodoContainer = () => {
         toggleStatus={toggleStatus}
         removeTodoItem={removeTodoItem}
       />
-    </div>
+    </React.Fragment>
   );
 };
 

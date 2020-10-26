@@ -11,20 +11,24 @@ function TodoItem({
   removeTodoItem: (id: number) => void;
 }) {
   return (
-    <li
-      data-testid="todoItem"
-      style={{ textDecoration: item.isCompleted ? "line-through" : "none" }}
-      onClick={() => toggleStatus(item.id)}
-    >
-      {item.description}
-      <button
-        type="button"
-        data-testid={`deleteItemBtn-${item.id}`}
-        onClick={() => removeTodoItem(item.id)}
+    <tr key={item.id}>
+      <td
+        data-testid="todoItem"
+        style={{ textDecoration: item.isCompleted ? "line-through" : "none" }}
+        onClick={() => toggleStatus(item.id)}
       >
-        &times;
-      </button>
-    </li>
+        {item.description}
+      </td>
+      <td>
+        <button
+          type="button"
+          data-testid={`deleteItemBtn-${item.id}`}
+          onClick={() => removeTodoItem(item.id)}
+        >
+          &times;
+        </button>
+      </td>
+    </tr>
   );
 }
 export default TodoItem;

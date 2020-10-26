@@ -1,6 +1,7 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 import { TodoItem as TodoItemType } from "../common/interface/types";
+import styles from "./TodoList.module.css";
 
 function TodoList({
   todos,
@@ -12,17 +13,19 @@ function TodoList({
   removeTodoItem: (id: number) => void;
 }) {
   return (
-    <ul>
-      {todos &&
-        todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            item={todo}
-            toggleStatus={toggleStatus}
-            removeTodoItem={removeTodoItem}
-          />
-        ))}
-    </ul>
+    <table className={styles.table}>
+      <tbody>
+        {todos &&
+          todos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              item={todo}
+              toggleStatus={toggleStatus}
+              removeTodoItem={removeTodoItem}
+            />
+          ))}
+      </tbody>
+    </table>
   );
 }
 

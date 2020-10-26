@@ -14,27 +14,33 @@ describe("TodoItem", () => {
   const removeTodoItem = jest.fn();
 
   it("should display item description and status", () => {
+    const table = document.createElement('tbody');
+    
     const { getByText } = render(
-      <TodoItem
-        item={item}
-        toggleStatus={toggleStatus}
-        removeTodoItem={removeTodoItem}
-      />
-    );
-
+          <TodoItem
+            item={item}
+            toggleStatus={toggleStatus}
+            removeTodoItem={removeTodoItem}
+          />, {
+      container: document.body.appendChild(table),
+      })
     const todoItem = getByText(/item 1/i);
     expect(todoItem).toBeInTheDocument();
     expect(todoItem).toHaveStyle("text-decoration: line-through");
   });
 
   it("should call toggleStatus function when the item is clicked", () => {
+    const table = document.createElement('tbody');
+    
     const { getByText } = render(
-      <TodoItem
-        item={item}
-        toggleStatus={toggleStatus}
-        removeTodoItem={removeTodoItem}
-      />
-    );
+          <TodoItem
+            item={item}
+            toggleStatus={toggleStatus}
+            removeTodoItem={removeTodoItem}
+          />, {
+      container: document.body.appendChild(table),
+      })
+
     const todoItem = getByText(/item 1/i);
 
     fireEvent.click(todoItem);
@@ -42,13 +48,16 @@ describe("TodoItem", () => {
   });
 
   it("should call removeTodo callback function when the delete button is clicked", () => {
-    const { getByTestId } = render(
-      <TodoItem
-        item={item}
-        toggleStatus={toggleStatus}
-        removeTodoItem={removeTodoItem}
-      />
-    );
+  const table = document.createElement('tbody');
+    
+  const { getByTestId } = render(
+        <TodoItem
+          item={item}
+          toggleStatus={toggleStatus}
+          removeTodoItem={removeTodoItem}
+        />, {
+    container: document.body.appendChild(table),
+    })
 
     const deleteButton = getByTestId(`deleteItemBtn-${item.id}`);
     fireEvent.click(deleteButton);
