@@ -1,0 +1,11 @@
+.todoContainer {
+  width: 400px;
+  height: 400px;
+  margin: 10px auto;
+  background-color: rgb(114, 188, 231);
+  padding: 5px;
+}
+
+.header {
+  text-align: center;
+}
