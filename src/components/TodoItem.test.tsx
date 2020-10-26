@@ -14,32 +14,25 @@ describe("TodoItem", () => {
   const removeTodoItem = jest.fn();
 
   it("should display item description and status", () => {
-    const table = document.createElement('tbody');
     
     const { getByText } = render(
           <TodoItem
             item={item}
             toggleStatus={toggleStatus}
             removeTodoItem={removeTodoItem}
-          />, {
-      container: document.body.appendChild(table),
-      })
+          />)
     const todoItem = getByText(/item 1/i);
     expect(todoItem).toBeInTheDocument();
     expect(todoItem).toHaveStyle("text-decoration: line-through");
   });
 
   it("should call toggleStatus function when the item is clicked", () => {
-    const table = document.createElement('tbody');
-    
     const { getByText } = render(
-          <TodoItem
-            item={item}
-            toggleStatus={toggleStatus}
-            removeTodoItem={removeTodoItem}
-          />, {
-      container: document.body.appendChild(table),
-      })
+      <TodoItem
+        item={item}
+        toggleStatus={toggleStatus}
+        removeTodoItem={removeTodoItem}
+      />)
 
     const todoItem = getByText(/item 1/i);
 
@@ -48,16 +41,12 @@ describe("TodoItem", () => {
   });
 
   it("should call removeTodo callback function when the delete button is clicked", () => {
-  const table = document.createElement('tbody');
-    
-  const { getByTestId } = render(
-        <TodoItem
-          item={item}
-          toggleStatus={toggleStatus}
-          removeTodoItem={removeTodoItem}
-        />, {
-    container: document.body.appendChild(table),
-    })
+    const { getByTestId } = render(
+      <TodoItem
+        item={item}
+        toggleStatus={toggleStatus}
+        removeTodoItem={removeTodoItem}
+      />)
 
     const deleteButton = getByTestId(`deleteItemBtn-${item.id}`);
     fireEvent.click(deleteButton);
