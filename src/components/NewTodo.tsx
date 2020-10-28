@@ -8,7 +8,8 @@ interface NewTodoProps {
 export const NewTodo: React.FC<NewTodoProps> = ({ addTodoItem }) => {
   const [todo, setTodo] = useState("");
 
-  const handleAddTodo = () => {
+  const handleAddTodo = (event: ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
     addTodoItem(todo);
     setTodo("");
   };
@@ -19,16 +20,16 @@ export const NewTodo: React.FC<NewTodoProps> = ({ addTodoItem }) => {
 
   return (
     <div className={styles.newTodo}>
-      <input
-        className={styles.newTodoForm}
-        data-testid="newTodoInputField"
-        aria-label="Add new todo item"
-        onChange={handleChange}
-        value={todo}
-      />
-      <button data-testid="addBtn" onClick={handleAddTodo}>
-        Add Todo
-      </button>
+      <form onSubmit={handleAddTodo}>      
+        <input
+          className={styles.newTodoForm}
+          data-testid="newTodoInputField"
+          aria-label="Add new todo item"
+          onChange={handleChange}
+          value={todo}
+        />
+        <button data-testid="addBtn" type="submit">Add Todo</button>
+      </form>
     </div>
   );
 };
